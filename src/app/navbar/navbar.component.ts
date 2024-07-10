@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   template: `
     <nav class="navbar">
       <div class="container-nav">
         <div class="logo">Hub-Peliculas</div>
         <div class="nav-links">
-          @for (item of navLinks; track item.name) {
-            <a href={{item.path}} target="_blank" >{{ item.name }}</a>
-          }
+          <ng-container *ngFor="let item of navLinks; trackBy: trackByName">
+            <a [routerLink]="[item.path]" target="_self">{{ item.name }}</a>
+          </ng-container>
         </div>
       </div>
     </nav>
@@ -68,37 +70,17 @@ import { Component } from '@angular/core';
 `
 })
 export class NavbarComponent {
-
   navLinks = [
-    {
-      name: 'Home',
-      path: '/'
-    },
-    {
-      name: 'Generos',
-      path: '/generos'
-    },
-    {
-      name: 'Favoritos',
-      path: '/favoritos'
-    },
-    {
-      name: 'Series',
-      path: '/series'
-    },
-    {
-      name: 'Peliculas',
-      path: '/peliculas'
-    },
-    {
-      name: 'Configuracion',
-      path: '/configuracion'
-    },
-    {
-      name: 'Login',
-      path: '/login'
-    }
-
+    { name: 'Home', path: '/' },
+    { name: 'Generos', path: '/generos' },
+    { name: 'Favoritos', path: '/favoritos' },
+    { name: 'Series', path: '/series' },
+    { name: 'Peliculas', path: '/peliculas' },
+    { name: 'Configuracion', path: '/configuracion' },
+    { name: 'Login', path: '/login' }
   ];
 
+  trackByName(index: number, item: any): string {
+    return item.name;
+  }
 }
