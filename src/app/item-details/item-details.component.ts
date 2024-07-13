@@ -8,17 +8,21 @@ import { CommonModule } from '@angular/common';
   template: `
      <div *ngIf="id !== undefined && videos[id - 1]" class="container">
       <h1 class="title-details">Detalles de la Película</h1>
+      <div class="div-card-videos-container">
       <div class="div-card-videos">
-        <img [src]="videos[id - 1].img" class="img-card-video" width="300" height="420" alt="Item Image">
+        <img [src]="videos[id - 1].img" class="img-card-video" width="500" height="620" alt="Item Image">
+      </div>
+        <div class="div-card-details">
         <h2>{{ videos[id - 1].titulo }}</h2>
         <p>{{ videos[id - 1].description }}</p>
+        </div>
       </div>
     </div>
   `,
   styles: [`
     .container {
       margin: 0 auto;
-      max-width: 800px;
+      max-width: 1200px;
     }
     .title-details {
       text-align: center;
@@ -26,17 +30,23 @@ import { CommonModule } from '@angular/common';
     }
     .div-card-videos {
       display: flex;
-      flex-direction: column;
-      align-items: center;
     }
     .img-card-video {
       border: 1px solid #ccc;
       border-radius: 5px;
       margin-bottom: 20px;
     }
+    .div-card-videos-container {
+      display: flex;
+      padding: 40px 0px 20px 0px;
+    }
+    .div-card-details {
+      margin-left: 20px;
+    }
   `]
 })
 export class ItemDetailsComponent implements OnInit {
+
   @Input() id?: number;
 
   ngOnInit(): void {

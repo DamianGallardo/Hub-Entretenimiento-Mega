@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {ItemListComponent} from '../item-list/item-list.component';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-video-list',
   standalone: true,
-  imports: [ItemListComponent],
+  imports: [ItemListComponent, CommonModule],
   template: `
     <div class="container">
       <h2>Ve los nuevos estrenos que tenemos para ti!</h2>
@@ -41,7 +42,7 @@ import {ItemListComponent} from '../item-list/item-list.component';
   `
 })
 export class VideoListComponent {
-  
+
 
 
 }

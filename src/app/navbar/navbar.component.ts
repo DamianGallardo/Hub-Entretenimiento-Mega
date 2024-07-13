@@ -72,11 +72,11 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
   navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Generos', path: '/generos' },
+    // { name: 'Generos', path: '/generos' },
     { name: 'Favoritos', path: '/favoritos' },
-    { name: 'Series', path: '/series' },
+    // { name: 'Series', path: '/series' },
     { name: 'Peliculas', path: '/peliculas' },
-    { name: 'Configuracion', path: '/configuracion' },
+    // { name: 'Configuracion', path: '/configuracion' },
     { name: 'Login', path: '/login' }
   ];
 

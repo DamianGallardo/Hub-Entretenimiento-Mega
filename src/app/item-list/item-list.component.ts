@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemDetailsComponent } from '../item-details/item-details.component';
@@ -8,15 +8,19 @@ import { ItemDetailsComponent } from '../item-details/item-details.component';
   standalone: true,
   imports: [CommonModule, ItemDetailsComponent],
   template: `
-      <div class="container">
+  <!-- Vista cartas de peliculas iterando -->
+      <div class="container"> 
     @for (video of videos; track video.id) {
     <div class="div-card-videos" >
       <img [src]="video.img" class="img-card-video" width="300" height="420"  alt="Item Image">
       <h2>{{ video.titulo }}</h2>
       <p>{{ video.description }}</p>
-      <button (click)="toDetails(video.id)">Ver más...</button>      
+      <!-- Boton ver mas detalles que manda id del video -->
+      <button (click)="toDetails(video.id)">Ver más...</button>   
+         <!-- Boton agrgar a lista negra -->
       <button (click)="addToBlackList()">Eliminar</button>
-      <button (click)="addToFavorites()">Agregar a Favoritos</button>
+      <!-- Boton agregar a favoritos -->
+      <button (click)="addToFavorites(video.id)">Agregar a Favoritos</button>
       
     </div>
     }
@@ -44,6 +48,7 @@ import { ItemDetailsComponent } from '../item-details/item-details.component';
       .container {
         width: auto;
         margin: 0 auto;
+        padding: 30px 0px 0px 0px;
       }
     }
     .div-card-videos {
@@ -107,10 +112,22 @@ export class ItemListComponent {
     }
   ];
 
-  listFavorites = [];
+  @Input() listFavorites: any[] = [];
 
-  addToFavorites() {
-    alert('Added to favorites');
+
+  ngOnInit(): void {
+    console.log('Item List', this.listFavorites);
+  }
+
+  addToFavorites(videoId: number) {
+    // Add to favorites
+    const video = this.videos.find(v => v.id === videoId);
+    if (video) {
+      this.listFavorites.push(video);
+      localStorage.setItem('favoritos', JSON.stringify(this.listFavorites));
+      alert('Added to favorites');
+      console.log('Item List', this.listFavorites);
+    }
   }
 
   addToBlackList() {
@@ -121,7 +138,7 @@ export class ItemListComponent {
     // Navigate to the details route with the videoId
     this.router.navigate(['/peliculas/', videoId]);
   }
-
+  // Track by id
   trackById(index: number, video: any): number {
     return video.id;
   }
