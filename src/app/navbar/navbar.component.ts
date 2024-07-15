@@ -70,16 +70,28 @@ import { RouterModule } from '@angular/router';
 `
 })
 export class NavbarComponent {
-  navLinks = [
-    { name: 'Home', path: '/' },
-    // { name: 'Generos', path: '/generos' },
-    { name: 'Favoritos', path: '/favoritos' },
-    // { name: 'Series', path: '/series' },
-    { name: 'Peliculas', path: '/peliculas' },
-    // { name: 'Configuracion', path: '/configuracion' },
-    { name: 'Login', path: '/login' }
-  ];
+  get navLinks() {
+    return [
+      { name: 'Home', path: '/' },
+      // { name: 'Generos', path: '/generos' },
+      { name: 'Favoritos', path: '/favoritos' },
+      // { name: 'Series', path: '/series' },
+      { name: 'Peliculas', path: '/peliculas' },
+      // { name: 'Configuracion', path: '/configuracion' },
+      this.getAuthLink(),
+    ];
+  }
 
+  getAuthLink() {
+    if (typeof window !== 'undefined' && localStorage) {
+      const isAuthenticated = !!localStorage.getItem('user');
+      return isAuthenticated
+        ? { name: 'Cerrar Sesión', path: '/login' }
+        : { name: 'Iniciar Sesión', path: '/login' };
+    }
+    return { name: 'Iniciar Sesión', path: '/login' };
+    
+  }
   trackByName(index: number, item: any): string {
     return item.name;
   }

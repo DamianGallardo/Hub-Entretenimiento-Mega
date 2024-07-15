@@ -2,6 +2,37 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
 
+## Pedro Damian Gaspar Gallardo
+
+### Hub de entretenimiento 
+Aplicaion en angular 18
+La aplicaion tines cartas de peliculas botones de agragar a favoritos, eliminar, y ver detalles.
+agregar a favorito los almacena en LocalStorage al igual que el usuario para mantener en memoria la cuenta.
+Vistas Responsivas
+### 2. Requerimientos tecnicos - Todo lo que usaste
+Todo es es angular 18
+
+### 4. Capturas de pantalla - 5 capturas con explicacion
+
+![1](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.42.43 p.m..png)
+Pantalla Principal y Peliculas
+![2](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.47.26 p.m..png)
+Detalles de producto con el boton de ver mas se envia el ID y por el ID se renderiza la carta
+![3](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.50.44 p.m..png)
+Favoritos agragados desde el boton de agregar a favoritos guradados
+![4](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.54.53 p.m..png)
+Login se guarda el perfil en localStorage
+![5](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.56.35 p.m..png)
+![6](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.52.35 p.m..png)
+Test con angular Karma
+
+### 6. Tabla con Sprint Review 
+
+| Que salio bien?             | Que puedo hacer diferente?                | Que no salio bien ? |
+------------------------------|-------------------------------------------|-----------------------
+| Resposividad y funcionalida | Puedo mejorar el estructurado de archivos | Mejorar mis Test, |
+  Test                          La informacion consumirla desde un api      
+                                Se puede mejorar mi diseño
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

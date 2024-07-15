@@ -8,13 +8,17 @@ import { CommonModule } from '@angular/common';
   template: `
     <div>
       <h1>Peliculas Favoritas!!</h1>
-      <div class="container">
-        <div class="div-card-videos" *ngFor="let video of favorites">
-          <img [src]="video.img" class="img-card-video" width="300" height="420" alt="Item Image">
-          <h2>{{ video.titulo }}</h2>
-          <p>{{ video.description }}</p>
+      @if(favorites.length === 0){
+        <h2>No tienes peliculas favoritas</h2>
+      }@else {
+        <div class="container">
+          <div class="div-card-videos" *ngFor="let video of favorites">
+            <img [src]="video.img" class="img-card-video" width="300" height="420" alt="Item Image">
+            <h2>{{ video.titulo }}</h2>
+            <p>{{ video.description }}</p>
+          </div>
         </div>
-      </div>
+      }
     </div>
   `,
   styles: [`
@@ -34,6 +38,12 @@ import { CommonModule } from '@angular/common';
       display: flex;
       flex-direction: column;
       gap: 5px;
+    }
+    h1{
+      text-align: center;
+    }
+    h2{
+      text-align: center;
     }
 
     `]
