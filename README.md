@@ -30,9 +30,7 @@ Test con angular Karma
 
 | Que salio bien?             | Que puedo hacer diferente?                | Que no salio bien ? |
 ------------------------------|-------------------------------------------|-----------------------
-| Resposividad y funcionalida | Puedo mejorar el estructurado de archivos | Mejorar mis Test, |
-  Test                          La informacion consumirla desde un api      
-                                Se puede mejorar mi diseño
+| Resposividad y funcionalida, Test  | Puedo mejorar el estructurado de archivos, La informacion consumirla desde un api, mejorar mi diseño | Mejorar mis Test
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
