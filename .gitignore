@@ -43,3 +43,8 @@ Thumbs.db
 
 # .vscode
 .vscode/*
+.idx/*
+.idx 
+.vscode
+
+
