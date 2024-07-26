@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
       }@else {
         <div class="container">
           <div class="div-card-videos" *ngFor="let video of favorites">
-            <img [src]="video.img" class="img-card-video" width="300" height="420" alt="Item Image">
-            <h2>{{ video.titulo }}</h2>
-            <p>{{ video.description }}</p>
+            <img [src]="video.ImageUrl" class="img-card-video" width="300" height="420" alt="Item Image">
+            <h2>{{ video.Title }}</h2>
+            <p>{{ video.Description }}</p>
           </div>
         </div>
       }

@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemDetailsComponent } from '../item-details/item-details.component';
+import { MoviesService } from '../service/movies.service';
 
 @Component({
   selector: 'app-item-list',
@@ -10,17 +11,17 @@ import { ItemDetailsComponent } from '../item-details/item-details.component';
   template: `
   <!-- Vista cartas de peliculas iterando -->
       <div class="container"> 
-    @for (video of videos; track video.id) {
+    @for (video of this.videos; track video.MovieID) {
     <div class="div-card-videos" >
-      <img [src]="video.img" class="img-card-video" width="300" height="420"  alt="Item Image">
-      <h2>{{ video.titulo }}</h2>
-      <p>{{ video.description }}</p>
+      <img [src]="video.ImageUrl" class="img-card-video" width="300" height="420"  alt="Item Image">
+      <h2>{{ video.Title }}</h2>
+      <p>{{ video.Description }}</p>
       <!-- Boton ver mas detalles que manda id del video -->
-      <button (click)="toDetails(video.id)">Ver más...</button>   
+      <button (click)="toDetails(video.MovieID)">Ver más...</button>   
          <!-- Boton agrgar a lista negra -->
       <button (click)="addToBlackList()">Eliminar</button>
       <!-- Boton agregar a favoritos -->
-      <button (click)="addToFavorites(video.id)">Agregar a Favoritos</button>
+      <button (click)="addToFavorites(video.MovieID)">Agregar a Favoritos</button>
       
     </div>
     }
@@ -76,70 +77,60 @@ import { ItemDetailsComponent } from '../item-details/item-details.component';
     }
   `]
 })
-export class ItemListComponent {
-  constructor(private router: Router) { }
+export class ItemListComponent implements OnInit {
+  videos: any;
 
-  videos = [
-    {
-      id: 1,
-      img: 'https://lumiere-a.akamaihd.net/v1/images/encanto_ka_las_pay1_92ad7410.jpeg?region=0%2C0%2C1080%2C1350',
-      titulo: 'Encanto',
-      description: 'Encanto es una película de animación musical estadounidense de 2021 producida por Walt Disney Animation Studios.'
-    },
-    {
-      id: 2,
-      img: 'https://lumiere-a.akamaihd.net/v1/images/1_intensamente_2_payoff_banner_pre_1_aa3d9114.png',
-      titulo: 'intensamente 2',
-      description: 'Intensamente 2 es una película de animación musical estadounidense de 2024 producida por Walt Disney Animation Studios.'
-    },
-    {
-      id: 3,
-      img: 'https://lumiere-a.akamaihd.net/v1/images/08c3f7af558231c022dcccf9eae2cd7c_2867x4096_41eff7c2.png',
-      titulo: 'wish',
-      description: 'wish es una película de animación musical estadounidense de 2024 producida por Walt Disney Animation Studios.'
-    },
-    {
-      id: 4,
-      img: 'https://lumiere-a.akamaihd.net/v1/images/beta_epic_payoff_las_f8ee4a65.jpeg',
-      titulo: 'Buzz Lightyear',
-      description: 'Buzz Lightyear es una película de animación musical estadounidense de 2024 producida por Walt Disney Animation Studios.'
-    },
-    {
-      id: 5,
-      img: 'https://lumiere-a.akamaihd.net/v1/images/elemental_las_c9499ca4.png',
-      titulo: 'Elemental',
-      description: 'Elemental es una película de animación musical estadounidense de 2024 producida por Walt Disney Animation Studios.'
-    }
-  ];
-
-  @Input() listFavorites: any[] = [];
-
+  constructor(private moviesService: MoviesService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('Item List', this.listFavorites);
+    this.getMovies();
   }
 
-  addToFavorites(videoId: number) {
-    // Add to favorites
-    const video = this.videos.find(v => v.id === videoId);
-    if (video) {
-      this.listFavorites.push(video);
-      localStorage.setItem('favoritos', JSON.stringify(this.listFavorites));
-      alert('Added to favorites');
-      console.log('Item List', this.listFavorites);
-    }
+  getMovies(): void {
+    this.moviesService.getMovies().subscribe((response) => {
+      this.videos = response;
+    });
   }
 
-  addToBlackList() {
-    alert('Added to Black List');
-  }
-
-  toDetails(videoId: number) {
+  toDetails(videoMovieID: number) {
     // Navigate to the details route with the videoId
-    this.router.navigate(['/peliculas/', videoId]);
+    this.router.navigate(['/peliculas/', videoMovieID]);
   }
   // Track by id
   trackById(index: number, video: any): number {
     return video.id;
   }
+
+  addToBlackList(): void {
+    // Add to black list
+  }
+
+  addToFavorites(videoMovieID: number): void {
+    // Obtener la información completa del video
+    this.moviesService.getMovieById(videoMovieID.toString()).subscribe((video) => {
+      // Obtener los favoritos existentes del local storage
+      const favorites = localStorage.getItem('favoritos')
+        ? JSON.parse(localStorage.getItem('favoritos') || '[]')
+        : [];
+
+      // Comprobar si el video ya está en favoritos
+      const isAlreadyFavorite = favorites.some((favorite: any) => favorite.MovieID === video.MovieID);
+
+      if (!isAlreadyFavorite) {
+        // Añadir el video completo a favoritos
+        favorites.push(video);
+
+        // Actualizar los favoritos en local storage
+        localStorage.setItem('favoritos', JSON.stringify(favorites));
+        alert('Added to favorites');
+      } else {
+        alert('Already in favorites');
+      }
+    });
+  }
 }
+ 
+  
+  
+
+
