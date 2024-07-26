@@ -1,31 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   template: `
     <div class="container">
-      @if(isLoggedIn === true) {
-        <button (click)="logout()">Logout</button>
-      }
-      @else {
-        <div class="container-login">
+      <div *ngIf="isLoggedIn==false" class="container-login">
         <h2>Login</h2>
-        <form [formGroup]="loginForm" id="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" id="form" (ngSubmit)="login()">
           <div class="form-group row">
             <label for="inputEmail3">Email</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="inputEmail3" formControlName="email" placeholder="Email">
+              <input type="email" class="form-control"  formControlName="Email" placeholder="Email">
             </div>
           </div>
           <div class="form-group row">
             <label for="inputPassword3">Password</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3" formControlName="password" placeholder="Password">
+              <input type="password" class="form-control" formControlName="Password" placeholder="Password">
             </div>
           </div>
           <div class="form-group row">
@@ -33,13 +30,31 @@ imports: [ReactiveFormsModule, CommonModule],
               <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Sign in</button>
             </div>
           </div>
+          <div class="form-group row">
+            <div>
+            <a href="/" target="_self" class="link" >Aun no tienes cuenta registrate</a>
+            </div>
+          </div>
         </form>
       </div>
-      }
+    </div>
+    <div class="container">
+    <div *ngIf="isLoggedIn==true" class="container-login">
+      <h2>Logueado</h2>
+      <p>Has iniciado sesion correctamente</p>
+      <div class="form-group row">
+        <div>
+          <button class="btn btn-primary" (click)="logout()">Cerrar sesion</button>
+        </div>
+      </div>
+    </div>
     </div>
   `,
-  styles: `
+  styles: [`
     h2 {
+      text-align: center;
+    }
+    p{
       text-align: center;
     }
     .container {
@@ -56,7 +71,7 @@ imports: [ReactiveFormsModule, CommonModule],
       background-color: #f9f9f9;
     }
     .form-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.125rem;
     }
     .col-sm-2 {
       flex: 0 0 16.666667%;
@@ -123,45 +138,44 @@ imports: [ReactiveFormsModule, CommonModule],
     .btn-primary:not(:disabled):not(.disabled):active:focus {
       box-shadow: 0 0 0 .2rem rgba(0,123,255,.5);
     }
-  `
+    .link {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+  `]
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+export class LoginComponent {
+  loginForm = new FormGroup({
+    Email: new FormControl('', [Validators.required, Validators.email]),
+    Password: new FormControl('', [Validators.required])
+  });
+
   isLoggedIn: boolean = false;
 
-  constructor(public fb: FormBuilder, public router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  login(): void {
+    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe({
+      next: () => (this.isLoggedIn = true, this.router.navigate(['/'])),
+      error: (err: any) => console.error('Login failed')
     });
   }
-  onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-      if (this.loginForm.value.email === 'Admin@gmail.com' && this.loginForm.value.password === '1234') {
-        console.log('Login success');
-        this.isLoggedIn = true;
-        console.log(this.isLoggedIn);
-        localStorage.setItem('user', JSON.stringify([this.loginForm.value.email, this.loginForm.value.password]));
-        this.router.navigate(['/peliculas']);
-      }
-    }
+
+  logout(): void {
+    this.authService.logout();
+    this.isLoggedIn = false;
   }
-  
+
   ngOnInit(): void {
     if (typeof window !== 'undefined' && localStorage) {
-      this.isLoggedIn = localStorage.getItem('user') !== null;
+      this.isLoggedIn = localStorage.getItem('token') !== null;
     } else {
       this.isLoggedIn = false;
     }
-    console.log(this.isLoggedIn);
   }
   
-  logout(): void {
-    localStorage.removeItem('user');
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
-  }
-
 
 }

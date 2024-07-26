@@ -78,20 +78,21 @@ export class NavbarComponent {
       // { name: 'Series', path: '/series' },
       { name: 'Peliculas', path: '/peliculas' },
       // { name: 'Configuracion', path: '/configuracion' },
-      this.getAuthLink(),
+      // this.getAuthLink(),
+      { name: 'Iniciar Sesión', path: '/login' }
     ];
   }
 
-  getAuthLink() {
-    if (typeof window !== 'undefined' && localStorage) {
-      const isAuthenticated = !!localStorage.getItem('user');
-      return isAuthenticated
-        ? { name: 'Cerrar Sesión', path: '/login' }
-        : { name: 'Iniciar Sesión', path: '/login' };
-    }
-    return { name: 'Iniciar Sesión', path: '/login' };
+  // getAuthLink() {
+  //   if (typeof window !== 'undefined' && localStorage) {
+  //     const isAuthenticated = !!localStorage.getItem('user');
+  //     return isAuthenticated
+  //       ? { name: 'Cerrar Sesión', path: '/login' }
+  //       : { name: 'Iniciar Sesión', path: '/login' };
+  //   }
+  //   return { name: 'Iniciar Sesión', path: '/login' };
     
-  }
+  // }
   trackByName(index: number, item: any): string {
     return item.name;
   }

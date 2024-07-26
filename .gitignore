@@ -45,4 +45,9 @@ Thumbs.db
 .vscode/*
 .idx/*
 
+# .idea
+.idea/*
+.idea/workspace.xml
+.idea/tasks.xml
 
+./src/environments/environments.development.ts

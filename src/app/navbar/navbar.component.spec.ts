@@ -40,15 +40,15 @@ describe('NavbarComponent', () => {
     expect(navLinks.length).toBe(4); // Peliculas, Favoritos, Iniciar Sesión, Registrarse
   });
 
-  it('should return "Cerrar Sesión" if user is authenticated', () => {
-    spyOn(localStorage, 'getItem').and.returnValue('true');
-    const authLink = component.getAuthLink();
-    expect(authLink.name).toBe('Cerrar Sesión');
-  });//espera que el nombre del enlace sea Cerrar Sesión si el usuario está autenticado
+  // it('should return "Cerrar Sesión" if user is authenticated', () => {
+  //   spyOn(localStorage, 'getItem').and.returnValue('true');
+  //   const authLink = component.getAuthLink();
+  //   expect(authLink.name).toBe('Cerrar Sesión');
+  // });//espera que el nombre del enlace sea Cerrar Sesión si el usuario está autenticado
 
-  it('should return "Iniciar Sesión" if user is not authenticated', () => {
-    spyOn(localStorage, 'getItem').and.returnValue(null);
-    const authLink = component.getAuthLink();
-    expect(authLink.name).toBe('Iniciar Sesión');
-  });//espera que el nombre del enlace sea Iniciar Sesión si el usuario no está autenticado
+  // it('should return "Iniciar Sesión" if user is not authenticated', () => {
+  //   spyOn(localStorage, 'getItem').and.returnValue(null);
+  //   const authLink = component.getAuthLink();
+  //   expect(authLink.name).toBe('Iniciar Sesión');
+  // });//espera que el nombre del enlace sea Iniciar Sesión si el usuario no está autenticado
 });
