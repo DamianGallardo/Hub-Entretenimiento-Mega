@@ -50,4 +50,5 @@ Thumbs.db
 .idea/workspace.xml
 .idea/tasks.xml
 
-./src/environments/environments.development.ts
+# Ignorar el archivo específico
+/environment.development.ts
