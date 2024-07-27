@@ -27,12 +27,15 @@ Login se guarda el perfil en localStorage
 Test con angular Karma
 
 # Version 2 Consumo de Back end 
-
+![alt text](/public/imageU.png)
 ![alt text](/public/image.png)
-Get ALL Movies 
+## Get ALL Movies 
 
 ![alt text](/public/imageID.png)
-Get ID Movies
+## Get ID Movies
+
+## Login User
+![alt text](/public/imageLogin.png)
 
 [BACK- END Y BASE DE DATOS REPO] (https://github.com/DamianGallardo/Back-Hub.git)
 
