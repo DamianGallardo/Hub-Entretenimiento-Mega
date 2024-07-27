@@ -26,6 +26,16 @@ Login se guarda el perfil en localStorage
 ![6](/public/Captura%20de%20pantalla%202024-07-14%20a%20la(s)%207.52.35 p.m..png)
 Test con angular Karma
 
+# Version 2 Consumo de Back end 
+
+![alt text](/public/image.png)
+Get ALL Movies 
+
+![alt text](/public/imageID.png)
+Get ID Movies
+
+[BACK- END Y BASE DE DATOS REPO] (https://github.com/DamianGallardo/Back-Hub.git)
+
 ### 6. Tabla con Sprint Review 
 
 | Que salio bien?             | Que puedo hacer diferente?                | Que no salio bien ? |

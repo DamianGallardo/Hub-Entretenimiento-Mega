@@ -10,6 +10,7 @@ export const routes: Routes = [
     { path: 'peliculas/:id', component: ItemDetailsComponent },
     { path: 'favoritos', component: FavoritosComponent},
     { path: 'login', component: LoginComponent},
+    {path: '', redirectTo: '/peliculas', pathMatch: 'full'}
 ];
 
 @NgModule({
